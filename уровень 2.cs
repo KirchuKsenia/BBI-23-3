@@ -1,59 +1,77 @@
-﻿struct ChessTournoment
+﻿using System;
+
+public class People
 {
+    private string _name;
     private string _surname;
-    private int _wins;
-    private double _drawns;
-    private int _loose;
-    private double _finalscore;
-    public ChessTournoment(string surname, int wins, double draws, int looses)
+
+    public People(string name, string surname)
     {
+        _name = name;
         _surname = surname;
-        _wins = wins;
-        _drawns = draws;
-        _loose = looses;
-        _finalscore = wins + draws / 2;
     }
-    public double Finalscore => _finalscore;
+
+    public string Name => _name;
+    public string Surname => _surname;
+}
+
+public class ChessPlayer : People
+{
+    private int _id;
+    private double _finalScore;
+
+    public ChessPlayer(string name, string surname, int id, int wins, double draws, int losses) : base(name, surname)
+    {
+        _id = id;
+        _finalScore = wins + draws / 2;
+    }
+
+    public int Id => _id;
+    public double FinalScore => _finalScore;
+
     public void Print()
     {
-        
-        Console.WriteLine( _surname + "        " +  _wins + "         " + _drawns + "          " +  _loose + "          " + _finalscore);
+        Console.WriteLine($"{Name}\t{Surname}\t{_id}\t{_finalScore}");
     }
 }
+
 internal class Program
 {
-    static void Sort(ChessTournoment[] participants)
+    static void Sort(ChessPlayer[] participants)
     {
         for (int i = 1; i < participants.Length; i++)
         {
             for (int j = 1; j < participants.Length; j++)
             {
-                if (participants[j].Finalscore > participants[j - 1].Finalscore)
+                if (participants[j].FinalScore > participants[j - 1].FinalScore)
                 {
-                    ChessTournoment temp = participants[j];
+                    ChessPlayer temp = participants[j];
                     participants[j] = participants[j - 1];
                     participants[j - 1] = temp;
                 }
             }
         }
     }
+
     static void Main(string[] args)
     {
-        ChessTournoment[] participants = new ChessTournoment[5]
+        ChessPlayer[] participants = new ChessPlayer[5]
         {
-            new ChessTournoment("Ptichin", 3, 7, 0),
-            new ChessTournoment("Zhuravlev", 1, 4, 5),
-            new ChessTournoment("Abricosov", 6, 2, 2),
-            new ChessTournoment("Volcov", 7, 0, 3),
-            new ChessTournoment("Sobakevich", 10 , 0, 0),
+            new ChessPlayer("Ivan", "Ptichin", 1, 3, 7, 0),
+            new ChessPlayer("Sergei", "Zhuravlev", 2, 1, 4, 5),
+            new ChessPlayer("Viktor", "Abricosov", 3, 6, 2, 2),
+            new ChessPlayer("Alexei", "Volcov", 4, 7, 0, 3),
+            new ChessPlayer("Dmitri", "Sobakevich", 5, 10, 0, 0)
         };
+
         Sort(participants);
-        Console.WriteLine("Список участников :");
-        Console.WriteLine("Фамилия\t     Победы\t     Ничьи\t     Поражения\t       Итог");
+
+        Console.WriteLine("ФИО\t\tИД\tИтоговый балл");
         for (int i = 0; i < participants.Length; i++)
         {
             participants[i].Print();
         }
+
         Console.ReadKey();
     }
 }

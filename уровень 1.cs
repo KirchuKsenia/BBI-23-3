@@ -1,88 +1,158 @@
-﻿struct Participant
-{
-    private string _surname;
-    private string _group;
-    private string _teacherSurname;
-    private int _result;
-    private string _normative;
+﻿using System.Text.RegularExpressions;
+using System;
 
-    public int Result => _result; // read-only property
-    public string Normative => _normative; // read-only property
-    public Participant(string surname, string group, string teacherSurname , int result)
+
+abstract class participant
+{
+    protected string _surname;
+    protected string _group;
+    protected string _teachersurname;
+    protected int _result;
+    protected string _normative;
+
+
+    public int result => _result; // read-only property
+    public string normative => _normative; // read-only property
+    public participant(string surname, string group, string teachersurname, int result)
     {
         _surname = surname;
         _group = group;
-        _teacherSurname = teacherSurname;
+        _teachersurname = teachersurname;
         _result = result;
-        if (result >= 500)
-        {
-            _normative = "Сдала";
-        }
-        else
-        {
-            _normative = "Не сдала";
-        }
+        _normative = "Не сдал";
 
     }
-
-    public void Print()
+    public virtual void NormativePr(int result)
     {
-        Console.WriteLine( _surname + "     " + _group + "          " + _teacherSurname + "          " + _result + "         " + _normative);
+    }
+
+    public virtual void print()
+    {
+        Console.WriteLine(_surname + "     " + _group + "          " + _teachersurname + "          " + _result + "         ");
     }
 }
-internal class Program
+class Competition_100 : participant
+{
+    public static int c { get; private set; }
+    static Competition_100()
+    {
+        c = 0;
+    }
+    public Competition_100(string surname, string group, string teachersurname, int result) : base(surname, group, teachersurname, result)
+    {
+        NormativePr(result);
+    }
+    public override void print()
+    {
+        Console.WriteLine(_surname + "     " + _group + "          " + _teachersurname + "          " + _result + "         " + _normative + "Бег 100");
+    }
+    public override void NormativePr(int result)
+    {
+        if (_result >= 100)
+        {
+            _normative = "Сдал";
+            c++;
+        }
+
+    }
+}
+
+
+class Competition_500 : participant
+{
+    public static int c { get; private set; }
+    static Competition_500()
+    {
+        c = 0;
+    }
+    public Competition_500(string surname, string group, string teachersurname, int result) : base(surname, group, teachersurname, result)
+    {
+        NormativePr(result);
+    }
+    public override void print()
+    {
+        Console.WriteLine(_surname + "     " + _group + "          " + _teachersurname + "          " + _result + "         " + _normative + "Бег 500");
+    }
+    public override void NormativePr(int result)
+    {
+
+        if (_result >= 500)
+        {
+            _normative = "Сдал";
+            c++;
+        }
+
+    }
+}
+internal class program
 {
     static void Main(string[] args)
     {
-        Participant[] participants = new Participant[5]
+        Competition_100[] participants = new Competition_100[5]
         {
-            new Participant("Sudakov", "A", "Smit",432),
-            new Participant("Leontev", "B", "Kozlov",501),
-            new Participant("Kirilov", "A", "Smit",499),
-            new Participant("Kotikov", "B", "Kozlov",514),
-            new Participant("Frolov", "B", "Kozlov",389)
+            new Competition_100("sudakov", "a", "smit",90),
+            new Competition_100("leontev", "b", "kozlov",501),
+            new Competition_100("kirilov", "a", "smit",499),
+            new Competition_100("kotikov", "b", "kozlov",80),
+            new Competition_100("frolov", "b", "kozlov",389)
         };
 
-        Sort(participants);
-        Console.WriteLine("Результирующая таблица:");
-        Console.WriteLine("Фамилия\t Группа\t Преподаватель\t Результат\t Выполнение норматива");
+        Competition_500[] participants1 = new Competition_500[5]
+        {
+            new Competition_500("sudakov", "a", "smit",90),
+            new Competition_500("leontev", "b", "kozlov",501),
+            new Competition_500("kirilov", "a", "smit",499),
+            new Competition_500("kotikov", "b", "kozlov",580),
+            new Competition_500("frolov", "b", "kozlov",389)
+        };
+        sort(participants);
+        sort(participants1);
+
+        Console.WriteLine("результирующая таблица:");
+        Console.WriteLine("фамилия\t группа\t преподаватель\t результат\t выполнение норматива");
         for (int i = 0; i < participants.Length; i++)
         {
-            participants[i].Print();
+            participants[i].print();
         }
+        Console.WriteLine();
+        Console.WriteLine(Competition_100.c);
+        Console.WriteLine();
+        for (int i = 0; i < participants1.Length; i++)
+        {
+            participants1[i].print();
+        }
+        Console.WriteLine();
+        Console.WriteLine(Competition_500.c);
         Console.ReadKey();
 
 
 
     }
-    static void Sort(Participant[] Participants)
+    static void sort(participant[] participants)
     {
-        for (int i = 1; i < Participants.Length; i++)
+        int i = 1;
+        int j = i + 1;
+        while (i < participants.Length)
         {
-            for (int j = 1; j < Participants.Length; j++)
+            if (participants[i].result < participants[i - 1].result)
             {
-                if (Participants[j].Result < Participants[j-1].Result)
+                i = j;
+                j++;
+            }
+            else
+            {
+                participant temp = participants[i];
+                participants[i] = participants[i - 1];
+                participants[i - 1] = temp;
+                i--;
+                if (i == 0)
                 {
-                    Participant temp = Participants[j];
-                    Participants[j] = Participants[j - 1];
-                    Participants[j - 1] = temp;
+                    i = j;
+                    j++;
                 }
-
-
-
             }
         }
-        int c = 0;
-        for (int i = 1; i < Participants.Length; i++)
-        {
-           
-            if (Participants[i].Normative == "Сдала")
-            {
-                c++;
-            }
-            
-        }
-        Console.WriteLine($"Суммарное количество участниц, выполнивших норматив: {c}");
 
     }
 }
+
