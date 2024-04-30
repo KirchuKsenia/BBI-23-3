@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 abstract class Task
@@ -25,15 +26,15 @@ class Program
             Console.WriteLine(line);
         }
         Task9 task9 = new Task9(text1);
-        
+
         var parsedText = task9.ParseText();
         string codeText = parsedText.Item1;
         Dictionary<string, string> codes = parsedText.Item2;
         Console.WriteLine(codeText);
-        
+
         Task10 task10 = new Task10(codeText, codes);
         Console.WriteLine(task10.ParseText().Item1);
-        
+
         Task12 task12 = new Task12(text1);
         var parsedText12 = task12.ParseText();
         string codedText = parsedText12.Item1;
@@ -64,7 +65,7 @@ class Task8 : Task
 
     public Task8(string text) : base(text)
     {
-        ParseText(); 
+        ParseText();
     }
 
     public override (string Text, Dictionary<string, string> tableCodes) ParseText()
@@ -76,13 +77,11 @@ class Task8 : Task
         {
             if (currentLineLength + word.Length > 50)
             {
-                while (line.Length < 50)
-                {
-                    line += " ";
-                }
+               
                 lines.Add(line);
-                line = word + " ";
+                line = word+" ";
                 currentLineLength = line.Length;
+                
             }
             else
             {
@@ -90,11 +89,38 @@ class Task8 : Task
                 currentLineLength += word.Length + 1;
             }
         }
-
+        
         if (!string.IsNullOrEmpty(line))
         {
             lines.Add(line);
         }
+    
+        for (int i = 0; i < lines.Count; i++)
+        {
+           
+            int z = lines[i].Length;
+            while (z < 51)
+            {
+                for (int l = 0; l < lines[i].Length-4; l++)
+                {
+                    if (lines[i][l] == ' ')
+                    {
+                        lines[i] = lines[i].Insert(l, " ");
+                        l++;
+                        z++;
+                        if (lines[i].Length >= 50) { break; }
+                    }
+                }
+            }
+
+        }
+        string r =lines[lines.Count - 1];
+        int o = r.Length-4 ;
+        while (r[o]!=' ')
+        {
+            o--;
+        }
+        lines[lines.Count - 1] = r.Insert(o, " ");
 
         return (null, null);
     }
@@ -103,34 +129,34 @@ class Task8 : Task
 
 class Task9 : Task
 {
-   
+
     public Task9(string text) : base(text) { }
 
     public override (string Text, Dictionary<string, string> tableCodes) ParseText()
     {
         string _text = Text.Replace(" ", "");
-        
+
         Dictionary<string, string> tableCodes = new Dictionary<string, string>();
         int countOfPar = 5;
         int counter = 0;
         HashSet<string> letters = new HashSet<string>
         {
-            "`", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "-", "=", 
-            "Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P", "[", "]", 
-            "A", "S", "D", "F", "G", "H", "J", "K", "L", ";", "'", 
-            "Z", "X", "C", "V", "B", "N", "M", ",", ".", "/", 
-            "!", "@", "#", "$", "%", "^", "&", "*", "(", ")", "_", "+", 
-            "q", "w", "e", "r", "t", "y", "u", "i", "o", "p", "{", "}", 
-            "a", "s", "d", "f", "g", "h", "j", "k", "l", ":", "\"", 
+            "`", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "-", "=",
+            "Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P", "[", "]",
+            "A", "S", "D", "F", "G", "H", "J", "K", "L", ";", "'",
+            "Z", "X", "C", "V", "B", "N", "M", ",", ".", "/",
+            "!", "@", "#", "$", "%", "^", "&", "*", "(", ")", "_", "+",
+            "q", "w", "e", "r", "t", "y", "u", "i", "o", "p", "{", "}",
+            "a", "s", "d", "f", "g", "h", "j", "k", "l", ":", "\"",
             "z", "x", "c", "v", "b", "n", "m", "<", ">", "?",
-            "ё", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "-", "=", 
-            "й", "ц", "у", "к", "е", "н", "г", "ш", "щ", "з", "х", "ъ", 
-            "ф", "ы", "в", "а", "п", "р", "о", "л", "д", "ж", "э", 
-            "я", "ч", "с", "м", "и", "т", "ь", "б", "ю", ".", 
+            "ё", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "-", "=",
+            "й", "ц", "у", "к", "е", "н", "г", "ш", "щ", "з", "х", "ъ",
+            "ф", "ы", "в", "а", "п", "р", "о", "л", "д", "ж", "э",
+            "я", "ч", "с", "м", "и", "т", "ь", "б", "ю", ".",
             "!", "\"", "№", ";", "%", ":", "?", "*", "(", ")", "_", "+",
-            "Ё", "!", "\"", "№", ";", "%", ":", "?", "*", "(", ")", "_", "+", 
-            "Й", "Ц", "У", "К", "Е", "Н", "Г", "Ш", "Щ", "З", "Х", "Ъ", 
-            "Ф", "Ы", "В", "А", "П", "Р", "О", "Л", "Д", "Ж", "Э", 
+            "Ё", "!", "\"", "№", ";", "%", ":", "?", "*", "(", ")", "_", "+",
+            "Й", "Ц", "У", "К", "Е", "Н", "Г", "Ш", "Щ", "З", "Х", "Ъ",
+            "Ф", "Ы", "В", "А", "П", "Р", "О", "Л", "Д", "Ж", "Э",
             "Я", "Ч", "С", "М", "И", "Т", "Ь", "Б", "Ю", ","
         };
 
@@ -149,7 +175,7 @@ class Task9 : Task
                 meetings[key] = 0;
             meetings[key] = meetings[key] + 1;
         }
-        
+
         var sortedMeetings = meetings.OrderBy(pair => pair.Value).Reverse();
         foreach (var pair in sortedMeetings)
         {
@@ -171,11 +197,11 @@ class Task9 : Task
 
 class Task10 : Task
 {
-    private Dictionary<string, string> tableCodes; 
+    private Dictionary<string, string> tableCodes;
 
     public Task10(string text, Dictionary<string, string> tableCodes) : base(text)
     {
-        this.tableCodes = tableCodes; 
+        this.tableCodes = tableCodes;
     }
 
     public override (string Text, Dictionary<string, string> tableCodes) ParseText()
@@ -192,7 +218,7 @@ class Task10 : Task
 
 class Task12 : Task
 {
-    private Dictionary<string, string> wordCodes = new Dictionary<string, string>(); 
+    private Dictionary<string, string> wordCodes = new Dictionary<string, string>();
     public Task12(string text) : base(text) { }
 
     public override (string Text, Dictionary<string, string> tableCodes) ParseText()
@@ -264,7 +290,7 @@ class Task13 : Task
         string result = "";
         foreach (var entry in letterPercentages)
         {
-            result += $"{entry.Key}: {entry.Value:F2}%\n"; 
+            result += $"{entry.Key}: {entry.Value:F2}%\n";
         }
         return (result, null);
     }
@@ -281,9 +307,9 @@ class Task15 : Task
         int sum = 0;
         foreach (string wordOrNumber in wordsAndNumbers)
         {
-            if (int.TryParse(wordOrNumber, out int number)) 
+            if (int.TryParse(wordOrNumber, out int number))
             {
-                sum += number; 
+                sum += number;
             }
         }
         return ($"Сумма чисел в тексте: {sum}", null);
