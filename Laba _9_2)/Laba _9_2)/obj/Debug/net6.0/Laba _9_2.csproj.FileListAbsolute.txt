@@ -1,0 +1,19 @@
+C:\Users\user\source\repos\Laba _9_2)\Laba _9_2)\bin\Debug\net6.0\Laba _9_2.exe
+C:\Users\user\source\repos\Laba _9_2)\Laba _9_2)\bin\Debug\net6.0\Laba _9_2.deps.json
+C:\Users\user\source\repos\Laba _9_2)\Laba _9_2)\bin\Debug\net6.0\Laba _9_2.runtimeconfig.json
+C:\Users\user\source\repos\Laba _9_2)\Laba _9_2)\bin\Debug\net6.0\Laba _9_2.dll
+C:\Users\user\source\repos\Laba _9_2)\Laba _9_2)\bin\Debug\net6.0\Laba _9_2.pdb
+C:\Users\user\source\repos\Laba _9_2)\Laba _9_2)\bin\Debug\net6.0\protobuf-net.dll
+C:\Users\user\source\repos\Laba _9_2)\Laba _9_2)\bin\Debug\net6.0\protobuf-net.Core.dll
+C:\Users\user\source\repos\Laba _9_2)\Laba _9_2)\bin\Debug\net6.0\System.Collections.Immutable.dll
+C:\Users\user\source\repos\Laba _9_2)\Laba _9_2)\obj\Debug\net6.0\Laba _9_2.csproj.AssemblyReference.cache
+C:\Users\user\source\repos\Laba _9_2)\Laba _9_2)\obj\Debug\net6.0\Laba _9_2.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\user\source\repos\Laba _9_2)\Laba _9_2)\obj\Debug\net6.0\Laba _9_2.AssemblyInfoInputs.cache
+C:\Users\user\source\repos\Laba _9_2)\Laba _9_2)\obj\Debug\net6.0\Laba _9_2.AssemblyInfo.cs
+C:\Users\user\source\repos\Laba _9_2)\Laba _9_2)\obj\Debug\net6.0\Laba _9_2.csproj.CoreCompileInputs.cache
+C:\Users\user\source\repos\Laba _9_2)\Laba _9_2)\obj\Debug\net6.0\Laba _9_2.csproj.CopyComplete
+C:\Users\user\source\repos\Laba _9_2)\Laba _9_2)\obj\Debug\net6.0\Laba _9_2.dll
+C:\Users\user\source\repos\Laba _9_2)\Laba _9_2)\obj\Debug\net6.0\refint\Laba _9_2.dll
+C:\Users\user\source\repos\Laba _9_2)\Laba _9_2)\obj\Debug\net6.0\Laba _9_2.pdb
+C:\Users\user\source\repos\Laba _9_2)\Laba _9_2)\obj\Debug\net6.0\Laba _9_2.genruntimeconfig.cache
+C:\Users\user\source\repos\Laba _9_2)\Laba _9_2)\obj\Debug\net6.0\ref\Laba _9_2.dll
